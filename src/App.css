@@ -9,9 +9,12 @@ html, body, #root {
 .canvas-wrapper {
   flex: 1;
   position: relative;  /* so children can absolutely fill it */
-  background: #fca4fc;
+  background: #e0d18c;
 }
 
+.card {
+  padding: 2em;
+}
 
 .canvas-wrapper canvas {
   position: absolute !important;

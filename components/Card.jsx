@@ -1,15 +1,21 @@
-import React, { forwardRef, useRef, useImperativeHandle } from 'react'
+import React, { forwardRef, useRef, useImperativeHandle, useState } from 'react'
 import { useLoader } from '@react-three/fiber'
 import * as THREE from 'three'
 import { cardMap } from '../utils/cardList'
+import { useHover } from '../src/animations/hovercard'
 
 const Card = forwardRef(({
-  code,
+	code,
   position = [0, 0, 0],
   rotation = [0, 0, 0],
+  isDeck = false,
 }, ref) => {
+  const [hover, setHover] = useState(false);
   const meshRef = useRef()
   useImperativeHandle(ref, () => meshRef.current, [])
+  
+  if (!isDeck)
+  	useHover(meshRef, hover, rotation, position);
 
   const frontUrl = cardMap[code]
   const backUrl = cardMap['CardBacks']
@@ -33,6 +39,8 @@ const Card = forwardRef(({
       position={position}
       rotation={rotation}
       material={materials}
+      onPointerOver={() => setHover(true)}
+      onPointerOut={() => setHover(false)}
       castShadow
       receiveShadow
     >

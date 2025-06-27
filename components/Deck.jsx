@@ -67,13 +67,14 @@ export default function Deck({ onDeal, onDeckChange, groupRef }) {
     <group
       ref={groupRef}
       rotation={[-0.6, Math.PI, 0]}
-      position={[0, 1.5, -1]}
+      position={[0, 3.9, -1]}
     >
       {deck.map((code, idx) => (
         <Card
           key={`${code}-${idx}`}
           code={code}
           position={[0, -idx * 0.02, idx * 0.01]}
+		  isDeck={true}
         />
       ))}
 
@@ -83,7 +84,7 @@ export default function Deck({ onDeal, onDeckChange, groupRef }) {
           position={[0, 0, deck.length * 0.001 + 0.01]}
           onPointerDown={handlePointerDown}
         >
-          <boxGeometry args={[3.5, 4.5, 0.01]} />
+          <boxGeometry args={[2.5, 3.5, 0.01]} />
         </mesh>
       )}
     </group>

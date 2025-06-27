@@ -6,11 +6,11 @@ export function animateDeal(cardRefs, groupRef) {
   const origin = groupRef.current.position
   const total  = cardRefs.length
 
-  const spacingX    = 1.5    
-  const separationZ = 0.3 
+  const spacingX    = 2.6 
+  const separationZ = 0
   const yEnd        = -3
-  const duration    = 600
-  const delayEach   = 100
+  const duration    = 400
+  const delayEach   = 50
 
   function tween(from, to, dur, onUpdate) {
     const start = performance.now()
@@ -29,9 +29,9 @@ export function animateDeal(cardRefs, groupRef) {
     m.position.set(origin.x, origin.y, origin.z)
     m.rotation.set(0, Math.PI, 0)
 
-    const xEnd = -((total - 1) / 2) * spacingX + i + spacingX
+    const xEnd = -((total - 1) / 2) * spacingX + i * spacingX
     const zEnd = 0.2 + i * separationZ
-    const rotY = (i - (total - 1) / 2) * 0.1
+    const rotY = 0
 
     setTimeout(() => {
       tween(m.position.x, xEnd,    duration, v => (m.position.x = v))
