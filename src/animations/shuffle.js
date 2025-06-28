@@ -1,6 +1,10 @@
 export function animateShuffle(groupRef, onComplete) {
   const cards = Array.from(groupRef.current.children)
   const total = cards.length
+  const liftAmount = 1
+  const liftTime = 300
+  const scatterTime = 400
+  const restack = 500
 
   function tween(from, to, duration, apply, done) {
     const start = performance.now()
@@ -14,27 +18,27 @@ export function animateShuffle(groupRef, onComplete) {
   }
 
   cards.forEach(m => {
-    const lift = 1 + Math.random() * 0.5
-    tween(m.position.y, m.position.y + lift, 300, v => (m.position.y = v))
+    const lift = liftAmount + Math.random() * 0.5
+    tween(m.position.y, m.position.y + lift, liftTime, v => (m.position.y = v))
   })
 
   setTimeout(() => {
     cards.forEach(m => {
-      tween(m.position.x, (Math.random() - 0.5) * 1.5, 400, v => (m.position.x = v))
-      tween(m.rotation.y,   0, 400, r => (m.rotation.y = r))
+      tween(m.position.x, (Math.random() - 0.5) * 1.5, scatterTime, v => (m.position.x = v))
+      tween(m.rotation.y,   0, scatterTime, r => (m.rotation.y = r))
     })
   }, 350)
 
   setTimeout(() => {
     let done = 0
     cards.forEach((m, i) => {
-      tween(m.position.x,   0,          500, v => (m.position.x = v))
-      tween(m.position.y,  -i * 0.02,   500, v => (m.position.y = v))
-      tween(m.position.z,   i * 0.001,  500, v => (m.position.z = v))
-      tween(m.rotation.y,   0,          500, r => (m.rotation.y = r), () => {
+      tween(m.position.x,   0,          restack, v => (m.position.x = v))
+      tween(m.position.y,  -i * 0.02,   restack, v => (m.position.y = v))
+      tween(m.position.z,   i * 0.001,  restack, v => (m.position.z = v))
+      tween(m.rotation.y,   0,          restack, r => (m.rotation.y = r), () => {
         done++
         if (done === total && onComplete) 
-			onComplete
+			onComplete()
       })
     })
   }, 800)

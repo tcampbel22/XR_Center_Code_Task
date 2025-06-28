@@ -14,24 +14,17 @@ export default function Deck({ onDeal, onDeckChange, groupRef }) {
    const shuffleDeck = () => {
     animateShuffle(
       groupRef,
-      {
-        liftAmount:    2,
-        liftTime:      0.3,
-        scatterTime:   0.5,
-        restackTime:   0.7,
-        staggerAmount: 0.02,
-      },
-      () => {
-        const arr = [...deck]
-        for (let i = arr.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1))
-          ;[arr[i], arr[j]] = [arr[j], arr[i]]
-        }
-        setDeck(arr)
-        onDeal([])  
-      }
+	  () => {
+		  const arr = [...deck]
+		  for (let i = arr.length - 1; i > 0; i--) {
+			  const j = Math.floor(Math.random() * (i + 1));
+			  [arr[i], arr[j]] = [arr[j], arr[i]]
+		  }
+		  console.log("Deck shuffled");
+		  setDeck(arr) 
+		  }
     )
-  }
+}
 
 
   const handlePointerDown = (e) => {

@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useImperativeHandle, useState } from 'react'
+import React, { forwardRef, useRef, useImperativeHandle, useState, useEffect } from 'react'
 import { useLoader } from '@react-three/fiber'
 import * as THREE from 'three'
 import { cardMap } from '../utils/cardList'
@@ -9,13 +9,20 @@ const Card = forwardRef(({
   position = [0, 0, 0],
   rotation = [0, 0, 0],
   isDeck = false,
+  finalPos = null,
 }, ref) => {
   const [hover, setHover] = useState(false);
+  const [basePos, setBasePos] = useState(position);
   const meshRef = useRef()
+
   useImperativeHandle(ref, () => meshRef.current, [])
   
-  if (!isDeck)
-  	useHover(meshRef, hover, rotation, position);
+  useEffect(() => {
+	if (finalPos) {
+		setBasePos(finalPos);
+	}});
+
+  	useHover(meshRef, !isDeck && finalPos ? hover : false, rotation, basePos);
 
   const frontUrl = cardMap[code]
   const backUrl = cardMap['CardBacks']
@@ -44,7 +51,7 @@ const Card = forwardRef(({
       castShadow
       receiveShadow
     >
-      <boxGeometry args={[2.5, 3.5, 0.01]} />
+      <boxGeometry args={[2.1, 3.1, 0.01]} />
     </mesh>
   )
 })
