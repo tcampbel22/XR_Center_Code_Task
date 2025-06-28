@@ -4,7 +4,6 @@
  */
 export function animateDeal(cardRefs, groupRef) {
   const origin = groupRef.current.position
-  const total  = cardRefs.length
   const finalPos = [];
 
   const spacingX    = 2.3

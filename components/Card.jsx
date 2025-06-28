@@ -20,9 +20,9 @@ const Card = forwardRef(({
   useEffect(() => {
 	if (finalPos) {
 		setBasePos(finalPos);
-	}});
+	}}, [finalPos]);
 
-  	useHover(meshRef, !isDeck && finalPos ? hover : false, rotation, basePos);
+  useHover(meshRef, !isDeck && finalPos ? hover : false, rotation, basePos);
 
   const frontUrl = cardMap[code]
   const backUrl = cardMap['CardBacks']
